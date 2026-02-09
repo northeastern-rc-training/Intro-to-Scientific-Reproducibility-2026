@@ -1,12 +1,21 @@
-# Scientific Reproducibility: Best Practices and Implementation
+# Research Computing Training
 
-## Overview
+<img src="images/logo.png" alt="drawing" width="900"/>
+
+## Presentor
+
+Serena Caplins
+
+Associate Bioinformatician
+
+[Research Computing](https://rc.northeastern.edu/research-computing-team/)
+
+## Scientific Reproducibility: Best Practices and Implementation
 
 This training module provides a comprehensive introduction to scientific reproducibility, covering fundamental concepts, best practices, and practical implementation strategies. Whether you're a graduate student beginning your research journey or an established researcher looking to enhance your workflow, this guide will help you create more reliable, transparent, and reproducible research.
 
 **Duration:** Approximately 60 minutes  
 **Level:** Beginner to Intermediate  
-**Prerequisites:** Basic understanding of research methodology
 
 ---
 
@@ -16,17 +25,39 @@ This training module provides a comprehensive introduction to scientific reprodu
 2. [Key Concepts and Why It Matters](#key-concepts)
 3. [Best Practices Overview](#best-practices)
 4. [Version Control with Git](#version-control)
-5. [Building Conda Environments](#conda-environments)
-6. [Data Management Essentials](#data-management)
-7. [Documentation Standards](#documentation)
-8. [Hands-on Exercises](#exercises)
-9. [Resources and Further Reading](#resources)
+5. [Software suggestions](#software)
+6. [Building Conda Environments](#conda-environments)
+7. [Data Management Essentials](#data-management)
+8. [Documentation Standards](#documentation)
+9. [Hands-on Exercises](#exercises)
+10. [Resources and Further Reading](#resources)
 
 ---
 
 ## 1. Introduction to Scientific Reproducibility {#introduction}
 
 Scientific reproducibility is the ability of independent researchers to obtain consistent results using the same methods, data, and analysis procedures as the original study. It is a cornerstone of the scientific method and essential for validating research findings.
+
+In 2016 a Nature survey found that most researchers are unable to reproduce other researchers results (survey shown below).
+
+<img src="images/repro_crisis_nature.png" alt="drawing" width="900"/>
+
+
+With this training we hope to give you a few tools to increase the reproducibility of your research.
+
+<img src="images/repro_fig2.png" alt="drawing" width="900"/>
+
+## The first person you are helping here is yourself. 
+
+In every research project that I have done, as some point something needs to be repeated (an analyses or regenerate a plot).The more reproducibile your workflow is the better you will be at redoing (at any time) anything that you have done in the past. This will help you publish more efficiently!
+
+## Three part training series on Reproducibility
+
+Scientific Reproducibility 2: Version Control
+March 10, 2026 | 1:00 pm - 2:00 pm
+
+Scientific Reproducibility 3: Containers
+May 12, 2026 | 1:00 pm - 2:00 pm
 
 ### Learning Objectives
 
@@ -72,9 +103,8 @@ By the end of this training, you will be able to:
 1. Insufficient documentation of methods
 2. Data and code not shared
 3. Software versions not documented
-4. Random seeds not set
-5. Hardware-dependent results
-6. Absolute file paths in code
+4. Hardware-dependent results
+5. Absolute file paths in code
 
 ---
 
@@ -104,6 +134,8 @@ By the end of this training, you will be able to:
 
 ### Key Principles: FAIR Data
 
+FAIR was established in 2016 in a [paper in *Scientific Data*](https://www.nature.com/articles/sdata201618). FAIR is:
+
 - **F**indable: Use persistent identifiers and metadata
 - **A**ccessible: Store in openly accessible repositories
 - **I**nteroperable: Use standard formats
@@ -113,6 +145,11 @@ By the end of this training, you will be able to:
 
 ## 4. Version Control with Git {#version-control}
 
+We have a whole training on using git: [Scientific Reproducibility 2: Version Control
+March 10, 2026 | 1:00 pm - 2:00 pm](https://rc.northeastern.edu/research-computing-spring-training/)
+
+Version control is an important concept for reproducibility. We will brielfy introduce it here.
+
 ### Why Version Control?
 
 - Track changes to files over time
@@ -121,94 +158,94 @@ By the end of this training, you will be able to:
 - Maintain complete project history
 - Experiment without breaking working code
 
-### Essential Git Workflow
+Learn more in the training on March 10th!
+---
+
+## 5. Software
+
+Document the software you use as much as possible.
+
+If you used a module that was installed by the Research Computing team:
+Document the version you used and the dates that you ran it. This should be in your sbatch script or a README file.
+
+For Example:
 
 ```bash
-# Initialize a new repository
-mkdir my_research_project
-cd my_research_project
-git init
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -p short
+#SBATCH -t 5:00:00
+#SBATCH -n 32
 
-# Create and commit README
-echo "# My Research Project" > README.md
-git add README.md
-git commit -m "Initial commit: Add README"
+# load modules
 
-# Regular workflow
-git status                    # Check what's changed
-git add filename.py           # Stage specific files
-git add .                     # Stage all changes
-git commit -m "Add analysis"  # Commit with message
-git log --oneline            # View history
+module load julia/1.10.4
+module load bwa/0.7.18
+module load bamtools/2.5.2
 
-# Branching for experiments
-git checkout -b new-feature   # Create and switch to branch
-# ... make changes ...
-git checkout main            # Switch back to main
-git merge new-feature        # Merge changes
-```
+# change directory to where samples are located
 
-### Writing Good Commit Messages
+cd /projects/seedpod/rawdata
 
-**Bad examples**: "Fixed stuff", "Update", "Changes"
-
-**Good examples**: 
-- "Fix: Correct calculation error in statistical analysis"
-- "Add: Implement data validation function"
-- "Update: Improve documentation for preprocessing"
-
-### Project Structure
+# run bwa
+bwa mem ref.fa reads.fq > aln.sam
 
 ```
-my_research_project/
-├── README.md                 # Project overview
-├── LICENSE                   # License information
-├── environment.yml           # Conda environment
-├── .gitignore               # Files to ignore
-├── data/
-│   ├── raw/                 # Original data (never modify)
-│   ├── processed/           # Cleaned data
-│   └── README.md            # Data documentation
-├── src/                     # Source code
-│   ├── preprocessing.py
-│   ├── analysis.py
-│   └── visualization.py
-├── notebooks/               # Jupyter notebooks
-├── results/                 # Generated outputs
-│   ├── figures/
-│   └── tables/
-└── docs/                    # Documentation
+
+Your sbatch script thus become a record of the programs you used.
+
+If you make an update or change in the file, it is often best to copy the file and make the changes in the new version. You can also keep track of versions in github.
+
+### Do not load modules in your .bashrc
+
+The .bashrc is a hidden file in your home and can be customized in a few ways.
+
+This is a standard .bashrc with no user specific customizations.
+
+```bash
+[s.caplins@explorer-02 ~]$ cat .bashrc
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+```
+And here is one with some aliases and color customization.
+
+```bash
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+alias less='less --RAW-CONTROL-CHARS'
+export LS_OPTS='--color=auto'
+alias ls='ls ${LS_OPTS}'
+alias me='squeue -u s.caplins'
 ```
 
-### Essential .gitignore
+Edit your .bashrc with caution. This file is loaded in every shell and program that you use on the cluster.
 
-```gitignore
-# Large data files
-*.csv
-*.h5
-data/raw/*
-data/processed/*
+Do not load modules in your .bashrc as this breaks the discrete nature of sbatch scripts and can lead to confusion (did I use the program in my script of in the .bashrc). Loading modules in the .bashrc can also lead to conflicts with dependendcies. Its always best to keep items in scripts/READMEs.
 
-# Python
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
+### See how modules were installed on the cluster
 
-# Environments
-.env
-venv/
-.venv/
-conda_env/
-
-# OS files
-.DS_Store
-
-# Results (can be regenerated)
-results/figures/
-results/tables/
-```
-
----
+We have installation scripts for many of the modules that are on the cluster that you can view in this [github repository.](https://github.com/northeastern-rc-software-modules)
 
 ## 5. Building Conda Environments {#conda-environments}
 
@@ -223,14 +260,12 @@ Conda is a package and environment management system that:
 
 ### Creating a Conda Environment
 
-#### Method 1: Command Line
-
 ```bash
 # Create environment with specific Python version
 conda create -n myproject python=3.10
 
 # Activate the environment
-conda activate myproject
+source activate myproject
 
 # Install packages
 conda install numpy pandas matplotlib scipy
@@ -241,36 +276,6 @@ pip install some-package
 
 # Deactivate when done
 conda deactivate
-```
-
-#### Method 2: From environment.yml (Recommended)
-
-Create an `environment.yml` file:
-
-```yaml
-name: myproject
-channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - python=3.10
-  - numpy=1.24.3
-  - pandas=2.0.2
-  - matplotlib=3.7.1
-  - scipy=1.11.1
-  - scikit-learn=1.3.0
-  - jupyter
-  - notebook
-  - pip
-  - pip:
-    - special-package==1.0.0
-```
-
-Build from file:
-```bash
-conda env create -f environment.yml
-conda activate myproject
 ```
 
 ### Best Practices for Conda Environments
@@ -331,6 +336,16 @@ conda env export --from-history > environment.yml
 conda list -e > requirements.txt
 ```
 
+#### 6. Add all packages in one session
+
+Conda works best when it can install all the packages at once. Its a package manager so in addition to installing packages, it checks for dependency conflicts and resolves them. It does not do this well in many separate sessions.
+
+If you take a conda environment and add packages to over time you are more likely to create an environment that contains conflicts which you will run into when you try to recrease the envionnment.
+
+#### 7. Keep conda environments small
+
+There should not be one environment to rule them all. But many small environments for each task or analyses that you intend to perform. These small environments are the easiest to reproduce.
+
 ### Managing Multiple Environments
 
 ```bash
@@ -338,10 +353,12 @@ conda list -e > requirements.txt
 conda env list
 
 # Create environment in specific location
-conda create -p ./conda_env python=3.10
+conda create -p /projects/projec_name python=3.10
 
 # Remove an environment
 conda env remove -n myproject
+
+conda create -p /projects/projec_name
 
 # Clone an environment
 conda create --clone myproject -n myproject_backup
@@ -401,15 +418,12 @@ dependencies:
   - pandas>=1.5,<3.0
 ```
 
-#### Environment Not Activating
+#### Always use Source Activate
 
 ```bash
-# Initialize conda for your shell
-conda init bash  # or zsh, fish, etc.
-
-# Restart terminal, then try
-conda activate myproject
+source activate conda_env_name
 ```
+The command "conda activate" requires you to run "conda init" first. This modifies your .bashrc (a hidden file in your home) and the conda init statement can lead to conflicts with the Open OnDemand website.
 
 ### Using Conda on HPC Systems
 
@@ -475,29 +489,10 @@ jupyter notebook
 conda env export > environment_final.yml
 
 # 8. Commit to git
+git checkout -b add_conda
 git add environment.yml environment_final.yml
 git commit -m "Add conda environment specifications"
-```
-
-### Setting Random Seeds for Reproducibility
-
-Even with identical environments, random operations need seeds:
-
-```python
-import numpy as np
-import random
-
-# Set all random seeds
-np.random.seed(42)
-random.seed(42)
-
-# For specific libraries
-import tensorflow as tf
-tf.random.set_seed(42)
-
-# For sklearn
-from sklearn.model_selection import train_test_split
-X_train, X_test = train_test_split(X, y, random_state=42)
+git push
 ```
 
 ---
@@ -516,9 +511,28 @@ data/
 ├── processed/             # Cleaned, transformed data
 │   ├── cleaned_data.csv
 │   └── README.md          # Processing steps documented
-└── metadata/              # Data dictionaries, codebooks
+└── metadata/              # Data dictionaries, codebooks, sample IDs
     └── variable_dictionary.csv
 ```
+
+```bash
+
+mkdir -P data/raw data/processed data/metadata
+
+ls -lh
+
+# only the owner of the directory can run chmod
+# clear with your professor first
+chmod 555 data/raw
+
+ls -lh
+
+```
+
+Learn more about permissions in our next training: [Intro to Linux
+February 24, 2026 | 11:00 am - 12:00 pm](https://rc.northeastern.edu/research-computing-spring-training/)
+
+Here are [a few ways](https://rc-docs.northeastern.edu/en/latest/datamanagement/index.html) to transfer data to the cluster (commands such as wget also work, but please only run on a compute node).
 
 #### File Naming Best Practices
 
