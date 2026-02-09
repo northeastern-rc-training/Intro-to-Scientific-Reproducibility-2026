@@ -287,9 +287,6 @@ pip install some-package
 conda deactivate
 ```
 
-```result
-```
-
 ### Best Practices for Conda Environments
 
 #### 1. Pin Important Versions
