@@ -261,6 +261,15 @@ Conda is a package and environment management system that:
 ### Creating a Conda Environment
 
 ```bash
+# Login in to the terminal
+ssh s.caplins@login.explorer.northeastern.edu
+
+# get on a compute node
+srun --pty bash
+
+# Load a miniconda3 or anaconda3 module
+module load miniconda3/25.9.1
+
 # Create environment with specific Python version
 conda create -n myproject python=3.10
 
@@ -276,6 +285,9 @@ pip install some-package
 
 # Deactivate when done
 conda deactivate
+```
+
+```result
 ```
 
 ### Best Practices for Conda Environments
