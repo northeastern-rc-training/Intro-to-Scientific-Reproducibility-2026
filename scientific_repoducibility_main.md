@@ -72,7 +72,7 @@ By the end of this training, you will be able to:
 
 ---
 
-## 2. Key Concepts and Why It Matters {#key-concepts}
+## 2. Key Concepts and Why It Matters
 
 ### Essential Terminology
 
@@ -108,7 +108,7 @@ By the end of this training, you will be able to:
 
 ---
 
-## 3. Best Practices Overview {#best-practices}
+## 3. Best Practices Overview 
 
 ### The Reproducibility Checklist
 
@@ -143,7 +143,7 @@ FAIR was established in 2016 in a [paper in *Scientific Data*](https://www.natur
 
 ---
 
-## 4. Version Control with Git {#version-control}
+## 4. Version Control with Git 
 
 We have a whole training on using git: [Scientific Reproducibility 2: Version Control
 March 10, 2026 | 1:00 pm - 2:00 pm](https://rc.northeastern.edu/research-computing-spring-training/)
@@ -247,7 +247,7 @@ Do not load modules in your .bashrc as this breaks the discrete nature of sbatch
 
 We have installation scripts for many of the modules that are on the cluster that you can view in this [github repository.](https://github.com/northeastern-rc-software-modules)
 
-## 5. Building Conda Environments {#conda-environments}
+## 5. Building Conda Environments 
 
 ### Why Use Conda?
 
@@ -509,7 +509,7 @@ git push
 
 ---
 
-## 6. Data Management Essentials {#data-management}
+## 6. Data Management Essentials
 
 ### Data Organization
 
@@ -610,7 +610,7 @@ jane.doe@university.edu
 
 ---
 
-## 7. Documentation Standards {#documentation}
+## 7. Documentation Standards 
 
 ### README Best Practices
 
@@ -700,7 +700,7 @@ x = x + 1
 x = x + 1
 ```
 
-## 8. Hands-on Exercises {#exercises}
+## 8. Hands-on Exercises
 
 ### Exercise 1: Conda Environment (10 minutes)
 
@@ -712,7 +712,7 @@ x = x + 1
 5. Export final environment: `conda env export > environment_final.yml`
 
 
-## 9. Resources and Further Reading {#resources}
+## 9. Resources and Further Reading
 
 ### Essential Tools
 
@@ -783,7 +783,6 @@ Reproducibility is essential for scientific progress. Key takeaways:
 ✓ **Document your environment** with conda/pip
 ✓ **Organize files systematically** (data/, src/, results/)
 ✓ **Write clear documentation** (README, comments, data dictionaries)
-✓ **Set random seeds** for stochastic analyses
 ✓ **Test reproducibility** by having others run your code
 
 ### Next Steps
