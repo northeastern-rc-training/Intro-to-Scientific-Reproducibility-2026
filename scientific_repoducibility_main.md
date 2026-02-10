@@ -21,16 +21,16 @@ This training module provides a comprehensive introduction to scientific reprodu
 
 ## Table of Contents
 
-1. [Introduction to Scientific Reproducibility](#introduction-to-Scientific-Reproducibility)
-2. [Key Concepts and Why It Matters](#key-concepts)
-3. [Best Practices Overview](#best-practices)
-4. [Version Control with Git](#version-control)
-5. [Software suggestions](#software)
-6. [Building Conda Environments](#conda-environments)
-7. [Data Management Essentials](#data-management)
-8. [Documentation Standards](#documentation)
-9. [Hands-on Exercises](#exercises)
-10. [Resources and Further Reading](#resources)
+1. [Introduction to Scientific Reproducibility](#introduction-to-scientific-reproducibility)
+2. [Key Concepts and Why It Matters](#key-concepts-and-why-it-matters)
+3. [Best Practices Overview](#best-practices-overview)
+4. [Version Control with Git](#version-control-with-git)
+5. [Software suggestions](#software-suggestions)
+6. [Building Conda Environments](#building-conda-environments)
+7. [Data Management Essentials](#data-management-essentials)
+8. [Documentation Standards](#documentation-standards)
+9. [Hands-on Exercises](#hands-on-exercises)
+10. [Resources and Further Reading](#resources-and-further-reading)
 
 ---
 
