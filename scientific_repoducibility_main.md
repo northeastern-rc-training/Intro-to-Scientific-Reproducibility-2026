@@ -289,21 +289,24 @@ conda deactivate
 
 ### Best Practices for Conda Environments
 
+If you don't specify a version conda will choose the latest (most recent).
+
 #### 1. Pin Important Versions
 
-```yaml
-dependencies:
-  - python=3.10        # Major.minor (allows patches)
-  - numpy=1.24.3       # Exact version for critical packages
-  - pandas>=2.0,<3.0   # Range for flexibility
+```bash
+
+conda install numpy=1.24.3 pandas>=2.0,<3.0 matplotlib scipy
+
 ```
+
+If you set a python version with `python=3.12`, conda will choose subsequent packages versions that are compatible with that python version.
 
 #### 2. Use Conda-Forge Channel
 
-```yaml
-channels:
-  - conda-forge  # Community-maintained, up-to-date packages
-  - defaults
+The conda-forge channel is the most maintained and up to date location for packages.
+
+```bash
+conda install -c conda-forge scikit-learn
 ```
 
 #### 3. Order Matters for Channels
@@ -315,6 +318,18 @@ channels:
   - conda-forge  # Check here first
   - bioconda     # Then here (for bioinformatics)
   - defaults     # Then defaults
+```
+
+You can check your channel priority with the command:
+
+```bash
+conda config --show channels
+```
+
+It is often best to let your config be `flexible/false` to channel order so that you can adjust the channel preference for each environment.
+
+```bash
+conda config --set channel_priority
 ```
 
 #### 4. Mixing Conda and Pip
@@ -362,7 +377,7 @@ There should not be one environment to rule them all. But many small environment
 conda env list
 
 # Create environment in specific location
-conda create -p /projects/projec_name python=3.10
+conda create -p /projects/project_name python=3.10
 
 # Remove an environment
 conda env remove -n myproject
@@ -385,7 +400,7 @@ conda search pandas
 # Check package info
 conda info pandas
 
-# List installed packages
+# List all installed packages
 conda list
 
 # Update specific package
@@ -434,27 +449,18 @@ source activate conda_env_name
 ```
 The command "conda activate" requires you to run "conda init" first. This modifies your .bashrc (a hidden file in your home) and the conda init statement can lead to conflicts with the Open OnDemand website.
 
-### Using Conda on HPC Systems
+### Using Conda in an sbatch script
 
 Many HPC clusters have conda installed. Best practices:
 
 ```bash
-# Load conda module (if required)
-module load anaconda3
-
-# Create environment in your project directory
-conda create -p /path/to/project/conda_env python=3.10
-
-# Activate with full path
-conda activate /path/to/project/conda_env
-
-# Or add to your job script
 #!/bin/bash
 #SBATCH --job-name=my_analysis
 #SBATCH --time=01:00:00
+#SBATCH -p short
 
-module load anaconda3
-conda activate /path/to/project/conda_env
+module load miniconda3/25.9.1
+source activate /path/to/project/conda_env
 
 python src/analysis.py
 ```
@@ -489,10 +495,7 @@ EOF
 conda env create -f environment.yml
 
 # 5. Activate environment
-conda activate research_project
-
-# 6. Start working
-jupyter notebook
+source activate research_project
 
 # 7. When done, export environment
 conda env export > environment_final.yml
