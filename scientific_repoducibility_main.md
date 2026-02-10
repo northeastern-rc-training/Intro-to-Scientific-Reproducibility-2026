@@ -21,7 +21,7 @@ This training module provides a comprehensive introduction to scientific reprodu
 
 ## Table of Contents
 
-1. [Introduction to Scientific Reproducibility](#introduction)
+1. [Introduction to Scientific Reproducibility](#introduction-to-Scientific-Reproducibility)
 2. [Key Concepts and Why It Matters](#key-concepts)
 3. [Best Practices Overview](#best-practices)
 4. [Version Control with Git](#version-control)
@@ -34,7 +34,7 @@ This training module provides a comprehensive introduction to scientific reprodu
 
 ---
 
-## 1. Introduction to Scientific Reproducibility {#introduction}
+## 1. Introduction to Scientific Reproducibility
 
 Scientific reproducibility is the ability of independent researchers to obtain consistent results using the same methods, data, and analysis procedures as the original study. It is a cornerstone of the scientific method and essential for validating research findings.
 
@@ -700,78 +700,17 @@ x = x + 1
 x = x + 1
 ```
 
-### Jupyter Notebook Structure
-
-```markdown
-# Project Title: Analysis of Treatment Effects
-
-## 1. Setup
-Import libraries and set parameters
-
-## 2. Data Loading
-Load and inspect data
-
-## 3. Data Exploration
-Descriptive statistics and visualizations
-
-## 4. Data Preprocessing
-Cleaning and transformations
-
-## 5. Analysis
-Statistical tests and models
-
-## 6. Results
-Summary of findings with visualizations
-
-## 7. Session Info
-Document software versions
-```
-
----
-
 ## 8. Hands-on Exercises {#exercises}
 
-### Exercise 1: Git and Project Setup (10 minutes)
-
-**Tasks:**
-1. Create a new directory: `mkdir reproducibility_practice`
-2. Initialize Git: `git init`
-3. Create README.md with project description
-4. Create .gitignore file
-5. Make first commit
-6. Create project structure (data/, src/, results/ folders)
-
-### Exercise 2: Conda Environment (10 minutes)
+### Exercise 1: Conda Environment (10 minutes)
 
 **Tasks:**
 1. Create environment.yml with Python 3.10, numpy, pandas, matplotlib
-2. Build environment: `conda env create -f environment.yml`
-3. Activate environment
-4. Write a simple Python script that uses these packages
+2. Build environment: `conda env create -n training_env`
+3. Activate environment with `source activate env name`
+4. Install some packages, suggestions: conda install matplotlib scipy R
 5. Export final environment: `conda env export > environment_final.yml`
 
-### Exercise 3: Data Documentation (10 minutes)
-
-**Tasks:**
-1. Create sample dataset or use provided data
-2. Write data/README.md describing the data
-3. Create a data dictionary table
-4. Document data collection and processing steps
-5. Note any known data quality issues
-
-### Exercise 4: Complete Reproducible Analysis (15 minutes)
-
-**Tasks:**
-1. Write a documented Python script that:
-   - Sets random seed
-   - Loads data from data/raw/
-   - Performs simple analysis
-   - Saves results to results/
-2. Update README with how to run analysis
-3. Commit all files to Git
-4. Test by having a partner clone and run your project
-
----
 
 ## 9. Resources and Further Reading {#resources}
 
